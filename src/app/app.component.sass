@@ -10,33 +10,33 @@
 	font-weight: bold;
 
 .team-selection-button, .person-selection-button
-	cursor: pointer;
-	font-family: Helvetica;
-	font-size: 22px;
-	margin-left: 10px;
-	margin-right: 10px;
+    cursor: pointer;
+    font-family: Helvetica;
+    font-size: 22px;
+    margin-left: 10px;
+    margin-right: 10px;
 
 .parent-ticket
-	width: 1200px;
-	background-color: #C0C0FF;
-	overflow: hidden;
-	margin: 5px;
-	font-family: Helvetica;
-	font-size: 18px;
+    width: 1200px;
+    background-color: #C0C0FF;
+    overflow: hidden;
+    margin: 5px;
+    font-family: Helvetica;
+    font-size: 18px;
 
 .parent-ticket-hidden
-	display: none;
+    display: none;
 
 
 .parent-ticket-visible
-	background-color: white;
+    background-color: white;
 
 
 .parent-ticket-visible.highlight-no
-	border: solid 1px #D0D0D0;
+    border: solid 1px #D0D0D0;
 
 .parent-ticket-visible.highlight-yes
-	border: solid 1px #A0A0A0;
+    border: solid 1px #A0A0A0;
 
 .status-box
     border: 1px solid #000000;
@@ -87,98 +87,71 @@
 	background-color: #D0FFD0;
 
 
+.parent-ticket-visible
+    .parent-ticket-title
+        margin-top: 5px;
+        width: 720px;
+        margin-left: 15px;
+        font-size: 18px;
+    &.collapsed
+        height: 30px;
+        .parent-ticket-title
+            font-size: 20px;
+            float: left;
+        .child-tickets
+            float: left;
+            width: 420px;
+            margin-top: 5px;
+            .child-ticket
+                background-color: #D0D0D0;
+                width: 20px;
+                height: 20px;
+                overflow: hidden;
+                margin-left: 5px;
+                &.child-in-team
+                    float: left;
+                    border: 1px solid #000000;
+                    background-color: white;
 
-.parent-ticket-visible.collapsed
-	height: 30px;
+                &.child-not-in-team
+                    float: right;
+                    color: #404040;
+                    background-color: #D0D0D0;
 
-.parent-ticket-visible .parent-ticket-title
-	word-wrap: unset;
-	font-size: 20px;
-	float: left;
+    &.expanded
+        margin-top: 5px;
+        font-size: 22px;
+        margin-left: 15px;
+        .parent-ticket-title
+        .child-tickets
+            clear: both;
+            margin-top: 5px;
+            padding-left: 40px;
+            .child-ticket
+                .child-ticket-title
+                    width: 400px;
+                    float: left;
+                width: 800px;
+                overflow: hidden;
+                margin-bottom: 5px;
 
-.parent-ticket-visible.collapsed .parent-ticket-title
-    margin-top: 5px;
-    width: 720px;
-    margin-left: 15px;
-    font-size: 18px;
+                &.child-in-team
+                    font-style: normal;
+                    color: #000000;
+                &.child-not-in-team
+                    font-style: italic;
+                    color: #808080;
+                .ticket-labels
+                    float: left;
+                    width: 200px;
+                    .ticket-label
+                        margin-left: 5px;
+                        margin-top: 5px;
 
-
-.parent-ticket-visible.expanded .parent-ticket-title
-    margin-top: 5px;
-    font-size: 22px;
-    margin-left: 15px;
 
 
 .child-ticket-title
     margin-left: 25px;
     margin-top: 5px;
     word-wrap: unset;
-
-
-.parent-ticket-visible.collapsed .child-tickets
-    float: left;
-    width: 420px;
-    margin-top: 5px;
-
-
-.parent-ticket-visible.expanded .child-tickets
-    clear: both;
-    margin-top: 5px;
-    padding-left: 40px;
-
-
-.parent-ticket-visible.collapsed .child-tickets .child-ticket
-    background-color: #D0D0D0;
-    width: 20px;
-    height: 20px;
-    overflow: hidden;
-    margin-left: 5px;
-
-
-.parent-ticket-visible.collapsed .child-tickets .child-ticket.child-in-team
-    float: left;
-    border: 1px solid #000000;
-    background-color: white;
-
-
-.parent-ticket-visible.collapsed .child-tickets .child-ticket.child-not-in-team
-    float: right;
-    color: #404040;
-    background-color: #D0D0D0;
-
-
-
-.parent-ticket-visible.expanded .child-tickets .child-ticket .child-ticket-title
-    width: 400px;
-    float: left;
-
-
-.parent-ticket-visible.expanded .child-tickets .child-ticket
-    width: 800px;
-    overflow: hidden;
-    margin-bottom: 5px;
-
-
-.parent-ticket-visible.expanded .child-ticket.child-not-in-team
-    font-style: italic;
-    color: #808080;
-    
-
-
-
-.parent-ticket-visible.expanded .child-ticket.child-in-team
-    font-style: normal;
-    color: #000000;
-    
-
-.parent-ticket-visible.expanded .child-ticket .ticket-labels
-    float: left;
-    width: 200px;
-
-
-.parent-ticket-visible.expanded .child-ticket .ticket-labels .ticket-label
-    margin-left: 5px;
-    margin-top: 5px;
-
-
 

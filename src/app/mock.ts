@@ -55,43 +55,22 @@ export class MockData {
                     ["RE", "TeamA"],
                     [ ]
                 ] 
-            ]]
-
-/* ,
-            ["", Status., [], [
-                ["", Status.,
-                    ["", "", "", "", "", "", ""],
-                    [ [date_, p], [date_, p], [date_, p], [date_, p], [date_, p] ]
-                ], 
-                ["", Status.,
-                    ["", "", "", "", "", "", ""],
-                    [ [date_, p], [date_, p], [date_, p], [date_, p], [date_, p] ]
-                ], 
-                ["", Status.,
-                    ["", "", "", "", "", "", ""],
-                    [ [date_, p], [date_, p], [date_, p], [date_, p], [date_, p] ]
-                ], 
-                ["", Status.,
-                    ["", "", "", "", "", "", ""],
-                    [ [date_, p], [date_, p], [date_, p], [date_, p], [date_, p] ]
-                ], 
-                ["", Status.,
-                    ["", "", "", "", "", "", ""],
-                    [ [date_, p], [date_, p], [date_, p], [date_, p], [date_, p] ]
-                ], 
-                ["", Status.,
-                    ["", "", "", "", "", "", ""],
-                    [ [date_, p], [date_, p], [date_, p], [date_, p], [date_, p] ]
-                ], 
-                ["", Status.,
-                    ["", "", "", "", "", "", ""],
-                    [ [date_, p], [date_, p], [date_, p], [date_, p], [date_, p] ]
-                ], 
-                ["", Status.,
-                    ["", "", "", "", "", "", ""],
-                    [ [date_, p], [date_, p], [date_, p], [date_, p], [date_, p] ]
-                ] 
             ]],
+            ["Training Nice script", Status.ToDo, [], [
+                ["Handover docs", Status.ToDo,
+                    ["SE", "TeamA"],
+                    [ ]
+                ], 
+                ["Send training material", Status.ToDo,
+                    ["RE", "TeamB"],
+                    [ ]
+                ], 
+                ["Meeting invites", Status.ToDo,
+                    ["RE", "TeamB"],
+                    [  ]
+                ] 
+            ]]
+/*   ,
             ["", Status., [], [
                 ["", Status.,
                     ["", "", "", "", "", "", ""],
