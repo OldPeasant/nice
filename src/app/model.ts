@@ -1,156 +1,61 @@
-import {
-    ParentDisplayValue,
-    ChildTicketInTeamValue,
-    ViewSelection
-} from './view';
+import { AbstractTicket, Person, WorkLogEntry } from './common';
+import { Status } from './conf';
+
+import { ParentDisplayValue, ChildTicketInTeamValue, ViewSelection } from './view';
 import { TicketStyler } from './ticket-styler';
-
-function contains(arr, val) {
-    for (var i = 0; i < arr.length; i++) {
-        if (arr[i] == val) {
-            return true;
-        }
-    }
-    return false;
-}
-
-function containedExcl(relevantLabels:string[], toCheck:string, allLabels:string[]) {
-    if (!contains(allLabels, toCheck)) {
-        return false;
-    }
-    for (var ixRel = 0; ixRel < relevantLabels.length; ixRel++) {
-        var rl = relevantLabels[ixRel];
-        if (rl != toCheck && contains(allLabels, rl)) {
-            return false;
-        }
-    }
-    return true;
-}
-
-class MapOfList {
-    map = {};
-
-    add(key, value) {
-        var list = this.map[key];
-        if (list == null) {
-            list = [];
-            this.map[key] = list;
-        }
-        list.push(value);
-    }
-}
-            
-const NULL_LABEL = "??";
-
-class LabelGrouper {
+import { SKILLS, NULL_LABEL } from './conf';
+import { singleMatch } from './util';
 
 
-    ticketsByLabel = new MapOfList();
+export class Epic {
+    name: string;
+    parentTickets: ParentTicket[]  = [];
 
-    constructor(labels: string[], tickets: CommonTicket[]) {
-        for (var iT = 0; iT < tickets.length; iT++) {
-            var t = tickets[iT];
-            var hasExcl = false;
-            for (var iL = 0; iL < t.labels.length; iL++) {
-                var lbl = t.labels[iL];
-                if (containedExcl(labels, lbl, t.labels)) {
-                    this.ticketsByLabel.add(lbl, t);
-                    hasExcl = true;
-                    break;
-                }
-            }
-            if (!hasExcl) {
-                this.ticketsByLabel.add(NULL_LABEL, t);
-            }
-        }
-    }
-}
-
-export class Person {
-    pid:string;
-    name:string;
-    constructor(pid:string, name:string){
-        this.pid = pid;
+    constructor(name: string) {
         this.name = name;
-    }    
-}
+    }
 
-export class WorkLogEntry {
-    person: Person;
-    logTime: Date;
-
-    constructor(person:Person, logTime:Date) {
-        this.person = person;
-        this.logTime = logTime;
+    addParentTicket(pt: ParentTicket) {
+        this.parentTickets.push(pt);
     }
 }
 
-export enum Status {
-    ToDo,
-    InProgress,
-    Blocked,
-    Done
-}
-//Status.ToDo.cssName = "status-todo";
-//Status.InProgress.cssName = "status-in-progress";
-//Status.Blocked.cssName = "status-blocked";
-//Status.Done.cssName = "status-done";
-
-export const CSS_PER_STATUS = {};
-CSS_PER_STATUS[Status.ToDo] = "status-todo";
-CSS_PER_STATUS[Status.InProgress] = "status-in-progress";
-CSS_PER_STATUS[Status.Blocked] = "status-blocked";
-CSS_PER_STATUS[Status.Done] = "status-done";
-
-class CommonTicket {
-
-    key = "No-Key";
-    subject = "No Subject";
-    status: Status;
-    highlight = false;
-    labels: string[] = [];
-    workLog:WorkLogEntry[] = [];
-
-    constructor(key: string, subject: string, status:Status) {
-        this.key =  key;
-        this.subject = subject;
-        this.status = status;
-        this.highlight = false;
-    }
-
-    getStatusCss() {
-        return CSS_PER_STATUS[this.status];
-    }
-
-    getHighlightCss() {
-        if (this.highlight) {
-            return "highlight-yes";
-        } else {
-            return "highlight-no";
-        }
-    }
-
-    hasWorkOf(p:Person) {
-        for (const w of this.workLog) {
-            if (w.person == p) {
-                return true;
+export class EpicStore {
+    allEpics = [];
+    getCreate(epicName: string) {
+        for (let e of this.allEpics) {
+            if (epicName == e.name) {
+                return e;
             }
         }
-        return false;
+        let epic = new Epic(epicName);
+        this.allEpics.push(epic);
+        return epic;
     }
-
 }
 
-export class ParentTicket extends CommonTicket {
+
+export class ParentTicket extends AbstractTicket {
+    epicName: string; 
+    flatChildren = [];
+    childTicketsBySkill = new Map();
     
-    children = [];
     display:boolean = true;
     parentDisplay : ParentDisplayValue;
     styleClassString = "class-not-initialized";
     collapsed: boolean = true;
 
-    constructor(key: string, subject: string, status:Status) {
+    constructor(epicName: string, key: string, subject: string, status:Status, labels:string[]) {
         super(key, subject, status);
+        this.epicName = epicName;
+    }
+    getChildrenPerSkill(skill) {
+        console.log("Ask for children per skill");
+        console.log(skill);
+        console.log(this.childTicketsBySkill);
+        var cl = this.childTicketsBySkill.get(skill);
+        console.log(cl);
+        return cl;
     }
 
     updateStyleClass() {
@@ -165,35 +70,47 @@ export class ParentTicket extends CommonTicket {
             this.styleClassString += " expanded";
         }
         this.styleClassString += " " + super.getStatusCss() + " " + super.getHighlightCss();
-        console.log("Update styleClassString of " + this.key + " to " + this.styleClassString);
     }
 
     toggleCollapsed() {
         this.collapsed = !this.collapsed;
         this.updateStyleClass();
-        console.log("TOGGLE!");
     }
 
     relatedToTeam(team) {
-        if (contains(this.labels, team)) {
+        if (this.labels.includes(team)) {
             return true;
         }
-        for (var i = 0; i < this.children.length; i++) {
-            if (contains(this.children[i].labels, team)) {
-                return true;
+        this.childTicketsBySkill.forEach( (tickets, skill) => {
+            for (let ct of tickets) {
+                if (ct.labels.includes(team)) {
+                    return true;
+                }
             }
-        }
+        });
         return false;
     }
 }
 
-export class ChildTicket extends CommonTicket {
+export class ChildTicket extends AbstractTicket {
     childTicketInTeam : ChildTicketInTeamValue;
     styleClassString : string = "child-class-not-initialized";
 
-    constructor(parentTicket: ParentTicket, key: string, subject: string, status: Status) {
+    constructor(parentTicket: ParentTicket, key: string, subject: string, status: Status, labels:string[], workLog:WorkLogEntry[]) {
         super(key, subject, status);
-        parentTicket.children.push(this);
+        parentTicket.flatChildren.push(this);
+        let match = singleMatch(SKILLS, labels);
+        if (match == null) {
+            match = NULL_LABEL;
+        }
+        let list = parentTicket.childTicketsBySkill.get(match);
+        if (list == null) {
+            list = [];
+            parentTicket.childTicketsBySkill.set(match, list);
+        }
+        list.push(this);
+        this.labels = labels;
+        this.workLog = workLog;
     }
 
     updateStyleClass() {
@@ -208,49 +125,46 @@ export class ChildTicket extends CommonTicket {
         s += " " + super.getStatusCss();
         s += " " + super.getHighlightCss();
         this.styleClassString = s;
-	console.log("USC " + this.key + " " + this.styleClassString);
     }
 }
 
 export class Model {
-    parentTickets: ParentTicket[] = [];
     viewSelection = new ViewSelection();
     ticketStyler = new TicketStyler();
     allPersons: Person[] = [];
-    allEpics: string[] = [];
+    epicStore = new EpicStore();
+    skills = SKILLS;
 
-    addAll(newParentTickets: ParentTicket[]) {
-        for (const pt of newParentTickets) {
-            this.parentTickets.push(pt);
-        }
-        this.ticketStyler.updateView(this.viewSelection, this.parentTickets);
+    addParentTicket(pt: ParentTicket) {
+        let epic = this.epicStore.getCreate(pt.epicName);
+        epic.addParentTicket(pt);
+        this.ticketStyler.updateView(this.viewSelection, this.epicStore);
     }
 
     addPerson(p: Person) {
-        console.log("Add person " + p.pid + " aka " + p.name + " to model");
         this.allPersons.push(p);
     }
 
     selectTeam(team:string) {
         this.viewSelection.selectedTeam = team;
-        this.ticketStyler.updateView(this.viewSelection, this.parentTickets);
-        this.ticketStyler.collapseAll(this.parentTickets);
+        this.ticketStyler.updateView(this.viewSelection, this.epicStore);
+        this.ticketStyler.collapseAll(this.epicStore);
     }        
 
     selectPerson(pid:string) {
         if (!pid) {
             this.viewSelection.selectedPerson = null;
-            this.ticketStyler.updateHighlights(true, this.viewSelection, this.parentTickets);
+            this.ticketStyler.updateHighlights(true, this.viewSelection, this.epicStore);
             return;
         }
         for (const p of this.allPersons) {
             if (pid == p.pid || !pid) {
-                console.log("Found " + p.name + " for PID " + pid);
                 this.viewSelection.selectedPerson = p;
-                this.ticketStyler.updateHighlights(true, this.viewSelection, this.parentTickets);
+                this.ticketStyler.updateHighlights(true, this.viewSelection, this.epicStore);
                 return;
             }
         }
-        console.log("No person found for " + pid);
     }
 }
+
+
