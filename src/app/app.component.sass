@@ -1,13 +1,13 @@
 .class-not-initialized
-	background-color: red;
+    background-color: red;
 
 
 .highlight-yes
-	border: solid 1px #404040;
+    border: solid 1px #404040;
 
 
 .this-team-selected, .this-person-selected
-	font-weight: bold;
+    font-weight: bold;
 
 .team-selection-button, .person-selection-button
     cursor: pointer;
@@ -49,30 +49,30 @@
         width: 30px;
 
 .child-ticket
-	> .status-box
-		height: 25px;
-		width: 25px;
+    > .status-box
+        height: 20px;
+        width: 20px;
 
 
 .child-in-team.status-todo .status-box, .parent-ticket.status-todo > .status-box
-	background-color: #FFB020;
+    background-color: #FFB020;
 
 
 .child-in-team.status-in-progress .status-box, .parent-ticket.status-in-progress > .status-box
-	background-color: #FFFF80;
+    background-color: #FFFF80;
 
 
 .child-in-team.status-blocked .status-box, .parent-ticket.status-blocked > .status-box
-	background-color: #FF4040;
+    background-color: #FF4040;
 
 
 .child-in-team.status-done .status-box, .parent-ticket.status-done > .status-box
-	background-color: #40FF20;
+    background-color: #40FF20;
 
 
 
 .child-not-in-team.status-todo .status-box
-	background-color: #iCCB040;
+    background-color: #iCCB040;
 
 
 .child-not-in-team.status-in-progress .status-box
@@ -123,6 +123,10 @@
         font-size: 22px;
         margin-left: 15px;
         .parent-ticket-title
+        .child-tickets-flat
+            background-color: #FF0000;
+        .child-tickets-by-skill-container
+            background-color: blue;
         .child-tickets
             clear: both;
             margin-top: 5px;

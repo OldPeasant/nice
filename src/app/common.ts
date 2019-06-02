@@ -46,8 +46,8 @@ export class AbstractTicket {
         }
     }
 
-    hasWorkOf(p:Person) {
-        for (const w of this.workLog) {
+    public hasWorkOf(p:Person) {
+        for (let w of this.workLog) {
             if (w.person == p) {
                 return true;
             }

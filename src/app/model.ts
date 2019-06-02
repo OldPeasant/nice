@@ -50,11 +50,7 @@ export class ParentTicket extends AbstractTicket {
         this.epicName = epicName;
     }
     getChildrenPerSkill(skill) {
-        console.log("Ask for children per skill");
-        console.log(skill);
-        console.log(this.childTicketsBySkill);
         var cl = this.childTicketsBySkill.get(skill);
-        console.log(cl);
         return cl;
     }
 
@@ -81,13 +77,11 @@ export class ParentTicket extends AbstractTicket {
         if (this.labels.includes(team)) {
             return true;
         }
-        this.childTicketsBySkill.forEach( (tickets, skill) => {
-            for (let ct of tickets) {
-                if (ct.labels.includes(team)) {
-                    return true;
-                }
+        for (let ct of this.flatChildren) {    
+            if (ct.labels.includes(team)) {
+                return true;
             }
-        });
+        }
         return false;
     }
 }

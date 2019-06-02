@@ -14,47 +14,29 @@
 
 <div *ngFor="let epic of model.epicStore.allEpics">
     <div class="epic-title">{{epic.name}}</div>
-
-    <div *ngFor="let parentTicket of epic.parentTickets" class="parent-ticket {{parentTicket.styleClassString" (click)="parentTicket.toggleCollapsed()">
-            <div class="status-box"></div>
-            <div class="parent-ticket-title">
-                {{parentTicket.key}}: {{parentTicket.subject}} {{parentTicket.flatChildren.length}}
-            </div>
-            <div class="child-tickets-flat">
-                Child Tickets Flat
-                <div *ngFor="let childTicket of parentTicket.flatChildren">
-                    TODO child ticket F {{childTicket.key}}
+    <div *ngFor="let parentTicket of epic.parentTickets" class="parent-ticket {{parentTicket.styleClassString}}" (click)="parentTicket.toggleCollapsed()">
+        <div class="status-box"></div>
+        <div class="parent-ticket-title">
+            {{parentTicket.key}}: {{parentTicket.subject}} {{parentTicket.flatChildren.length}}
+        </div>
+        <div class="child-tickets child-tickets-flat">
+            <div *ngFor="let childTicket of parentTicket.flatChildren" class="child-ticket {{childTicket.styleClassString}}" >
+                <div class="status-box"> </div>
+                <div class="child-ticket-title">
+                    {{childTicket.key}}: {{childTicket.subject}}
+                </div>
+                <div class="ticket-labels">
+                    <div *ngFor="let lbl of childTicket.labels" style="background:#D0D0D0; float:right;" class="ticket-label">
+                        {{lbl}}
+                    </div>
                 </div>
             </div>
-            <div class="child-tickets-by-skill-container">
-                Child Tickets By Skill
-                <div *ngFor="let skill of model.skills">
-                    <div class="skill-title">{{skill}}</div>
-                    <div class="child-tickets-per-skill">
-                        <div *ngFor="let childTicket of parentTicket.getChildrenPerSkill(skill)" class="child-ticket">
-                            TODO Child Ticket G {{childTicket.key}}
-                        </div>
-                    </div>
-            </div>
         </div>
-    </div>
-
-    
-
-    <div *ngFor="let skill of model.epicStore.allSkills" class="skill-box">
-        <div class="skill-name">Skill DIV {{skill}}</div>
-
-
-        <div *ngFor="let parentTicket of epic.parentTicketsBySkill[skill]" class=" parent-ticket {{parentTicket.styleClassString}} " (click)="parentTicket.toggleCollapsed()">
-
-
-
-            <div *ngFor="let childMode of ['a', 'b']" class="child-tickets child-tickets-mode-{{childMode}} child-mode-{{childMode}}">
-                ChildMode {{childMode}}
-                <div *ngFor="let skill of model.epicStore.allSkills" class="skill-group">
-                    Skill {{skill}}
-                    <div class="skill-group-title">{{skill}}</div>
-                    <div *ngFor="let childTicket of parentTicket.children" class="child-ticket {{childTicket.styleClassString}}">
+        <div class="child-tickets child-tickets-by-skill-container">
+            <div *ngFor="let skill of model.skills">
+                <div class="skill-title">{{skill}}</div>
+                <div class="child-tickets-per-skill">
+                    <div *ngFor="let childTicket of parentTicket.getChildrenPerSkill(skill)" class="child-ticket {{childTicket.styleClassString}}">
                         <div class="status-box"> </div>
                         <div class="child-ticket-title">
                             {{childTicket.key}}: {{childTicket.subject}}
@@ -64,6 +46,7 @@
                                 {{lbl}}
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
