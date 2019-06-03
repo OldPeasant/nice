@@ -20,21 +20,8 @@
         <div class="parent-ticket-title">
             {{parentTicket.key}}: {{parentTicket.subject}} {{parentTicket.flatChildren.length}}
         </div>
-        <div class="child-tickets child-tickets-flat">
-            <div *ngFor="let childTicket of parentTicket.flatChildren" class="child-ticket {{childTicket.styleClassString}}" >
-                <div class="status-box"> </div>
-                <div class="child-ticket-title">
-                    {{childTicket.key}}: {{childTicket.subject}}
-                </div>
-                <div class="ticket-labels">
-                    <div *ngFor="let lbl of childTicket.labels" style="background:#D0D0D0; float:right;" class="ticket-label">
-                        {{lbl}}
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="child-tickets child-tickets-by-skill-container">
-            <div *ngFor="let skill of model.skills">
+            <div *ngFor="let skill of model.skills" class="skill-box">
                 <div class="skill-title">{{skill}}</div>
                 <div class="child-tickets-per-skill">
                     <div *ngFor="let childTicket of parentTicket.getChildrenPerSkill(skill)" class="child-ticket {{childTicket.styleClassString}}">
@@ -48,6 +35,19 @@
                             </div>
                         </div>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="child-tickets child-tickets-flat">
+            <div *ngFor="let childTicket of parentTicket.flatChildren" class="child-ticket {{childTicket.styleClassString}}" >
+                <div class="status-box"> </div>
+                <div class="child-ticket-title">
+                    {{childTicket.key}}: {{childTicket.subject}}
+                </div>
+                <div class="ticket-labels">
+                    <div *ngFor="let lbl of childTicket.labels" style="background:#D0D0D0; float:right;" class="ticket-label">
+                        {{lbl}}
                     </div>
                 </div>
             </div>

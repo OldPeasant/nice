@@ -81,7 +81,6 @@ export class TicketStyler {
 
     updateHighlights(expandCollapse: boolean, viewSelection: ViewSelection, epicStore: EpicStore) {
         const selectedPerson = viewSelection.selectedPerson;
-        console.log("Update Highlights for " + selectedPerson.name);
         if (selectedPerson == null) {
             console.log("No person, unhighlight all, collapse all");
             for (let epic of epicStore.allEpics) {

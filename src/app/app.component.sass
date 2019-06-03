@@ -22,7 +22,6 @@
     font-style: italic;
 
 .parent-ticket
-    width: 1200px;
     background-color: #C0C0FF;
     overflow: hidden;
     margin: 5px;
@@ -78,16 +77,14 @@
 
 
 .parent-ticket-visible
-    .parent-ticket-title
-        margin-top: 5px;
-        width: 720px;
-        margin-left: 15px;
-        font-size: 18px;
     &.collapsed
-        height: 26px;
         .parent-ticket-title
-            font-size: 18px;
             float: left;
+            width: 720px;
+            margin-top: 5px;
+            margin-left: 15px;
+            font-size: 18px;
+        height: 26px;
         .child-tickets-by-skill-container
             display: none;
         .child-tickets-flat
@@ -107,25 +104,36 @@
                     float: right;
                     border: 1px solid #404040;
 
-
     &.expanded
-        margin-top: 5px;
-        font-size: 22px;
-        margin-left: 15px;
         .parent-ticket-title
+            margin-top: 5px
+            margin-left: 40px
+            font-size: 20px
+        .child-tickets-flat, .skill-box
+            width: 180px
+            float: left
+            background-color: #F8FFF8;
+            text-align: center;
+            border: solid 1px #404040
+            padding: 2px
         .child-tickets-flat
-            background-color: #FF0000;
+            float: right;
+            background-color: #FFF8F8;
+            .child-in-team
+                display: none
         .child-tickets-by-skill-container
-            background-color: blue;
+            background-color: #F0F0F0;
+            float: left;
+            .child-not-in-team
+                display: none;
         .child-tickets
-            clear: both;
-            margin-top: 5px;
-            padding-left: 40px;
             .child-ticket
                 .child-ticket-title
-                    width: 400px;
+                    width: 160px;
                     float: left;
-                width: 800px;
+                    white-space: nowrap;
+                width: 180px;
+                height: 40px;
                 overflow: hidden;
                 margin-bottom: 5px;
 
@@ -136,16 +144,8 @@
                     font-style: italic;
                     color: #808080;
                 .ticket-labels
-                    float: left;
-                    width: 200px;
-                    .ticket-label
-                        margin-left: 5px;
-                        margin-top: 5px;
+                    display: none;
 
 
 
-.child-ticket-title
-    margin-left: 25px;
-    margin-top: 5px;
-    word-wrap: unset;
 
