@@ -66,7 +66,7 @@ export class MockData {
                     ["NG", "TeamA"],
                     [ ]
                 ], 
-                ["Send training material", Status.ToDo,
+                ["Send training material", Status.InProgress,
                     ["RE", "TeamB"],
                     [ ]
                 ], 

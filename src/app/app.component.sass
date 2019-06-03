@@ -16,13 +16,18 @@
     margin-left: 10px;
     margin-right: 10px;
 
+.epic-title
+    font-family: Helvetica;
+    font-size: 22px;
+    font-style: italic;
+
 .parent-ticket
     width: 1200px;
     background-color: #C0C0FF;
     overflow: hidden;
     margin: 5px;
     font-family: Helvetica;
-    font-size: 18px;
+    font-size: 16px;
 
 .parent-ticket-hidden
     display: none;
@@ -45,46 +50,31 @@
 
 .parent-ticket
     > .status-box
-        height: 30px;
-        width: 30px;
+        margin-top: 0px;
+        margin-left: 0px;
+        height: 24px;
+        width: 24px;
 
 .child-ticket
     > .status-box
-        height: 20px;
-        width: 20px;
+        height: 17px;
+        width: 17px;
 
-
-.child-in-team.status-todo .status-box, .parent-ticket.status-todo > .status-box
+.child-ticket.status-todo > .status-box, .parent-ticket.status-todo > .status-box
     background-color: #FFB020;
 
-
-.child-in-team.status-in-progress .status-box, .parent-ticket.status-in-progress > .status-box
+.child-ticket.status-in-progress > .status-box, .parent-ticket.status-in-progress > .status-box
     background-color: #FFFF80;
 
-
-.child-in-team.status-blocked .status-box, .parent-ticket.status-blocked > .status-box
+.child-ticket.status-blocked > .status-box, .parent-ticket.status-blocked > .status-box
     background-color: #FF4040;
 
-
-.child-in-team.status-done .status-box, .parent-ticket.status-done > .status-box
+.child-ticket.status-done > .status-box, .parent-ticket.status-done > .status-box
     background-color: #40FF20;
 
 
-
-.child-not-in-team.status-todo .status-box
-    background-color: #iCCB040;
-
-
-.child-not-in-team.status-in-progress .status-box
-	background-color: #FFFFDD;
-
-
-.child-not-in-team.status-blocked .status-box
-	background-color: #CC6060;
-
-
-.child-not-in-team.status-done .status-box
-	background-color: #D0FFD0;
+.collapsed .child-not-in-team .status-box
+    opacity: 0.2;
 
 
 .parent-ticket-visible
@@ -94,29 +84,29 @@
         margin-left: 15px;
         font-size: 18px;
     &.collapsed
-        height: 30px;
+        height: 26px;
         .parent-ticket-title
-            font-size: 20px;
+            font-size: 18px;
             float: left;
-        .child-tickets
+        .child-tickets-by-skill-container
+            display: none;
+        .child-tickets-flat
             float: left;
-            width: 420px;
-            margin-top: 5px;
+            width: 400px;
             .child-ticket
-                background-color: #D0D0D0;
-                width: 20px;
-                height: 20px;
+                float: left;
+                width: 18px;
+                height: 18px;
+                margin-left: 3px;
+                margin-top: 3px;
                 overflow: hidden;
-                margin-left: 5px;
                 &.child-in-team
                     float: left;
                     border: 1px solid #000000;
-                    background-color: white;
-
                 &.child-not-in-team
                     float: right;
-                    color: #404040;
-                    background-color: #D0D0D0;
+                    border: 1px solid #404040;
+
 
     &.expanded
         margin-top: 5px;

@@ -11,6 +11,7 @@
     <span *ngFor="let person of model.allPersons" (click)="selectPerson(person.pid)" class="person-selection-button {{selectedPersonCss(person)}}" >{{person.name}}</span>  
 </div>
 
+<hr>
 
 <div *ngFor="let epic of model.epicStore.allEpics">
     <div class="epic-title">{{epic.name}}</div>

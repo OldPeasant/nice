@@ -25,6 +25,9 @@ export class TicketStyler {
         for (let epic of epicStore.allEpics) {
             for (let pt of epic.parentTickets) {
                 pt.updateStyleClass();
+                for (let ct of pt.flatChildren) {
+                    ct.updateStyleClass();
+                }
             }
         }
     }
