@@ -84,14 +84,23 @@ export class TicketStyler {
         if (selectedPerson == null) {
             console.log("No person, unhighlight all, collapse all");
             for (let epic of epicStore.allEpics) {
+                console.log("Epic " + epic.name);
                 for (const pt of epic.parentTickets) {
+                    console.log(pt.key);
                     pt.highlight = false;
-                    for (const ct of pt.children) {
+                    console.log(" anftc");
+                    console.log(pt);
+                    console.log(pt.children);
+                    console.log(" .. loop ..");
+                    for (let ct of pt.flatChildren) {
+                        console.log(" c");
                         ct.highlight = false;
                     }
+                    console.log("  .");
                     if (expandCollapse) {
                         pt.collapsed = true;
                     }
+                    console.log("  ..");
                 }
             }
         } else {

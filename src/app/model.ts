@@ -127,22 +127,56 @@ export class Model {
     ticketStyler = new TicketStyler();
     allPersons: Person[] = [];
     epicStore = new EpicStore();
-    skills = SKILLS;
+    skillsInTeam = SKILLS;
 
     addParentTicket(pt: ParentTicket) {
         let epic = this.epicStore.getCreate(pt.epicName);
         epic.addParentTicket(pt);
         this.ticketStyler.updateView(this.viewSelection, this.epicStore);
+        this.updateSkillsInTeam();
     }
 
     addPerson(p: Person) {
         this.allPersons.push(p);
     }
 
+    updateSkillsInTeam() {
+        const sel = this.viewSelection.selectedTeam;
+        const activeSkills = {};
+        for (let e of this.epicStore.allEpics) {
+            for (let pt of e.parentTickets) {
+                for (let ct of pt.flatChildren) {
+                    if (sel == null || ct.labels.includes(sel)) { 
+                        let skill = singleMatch(SKILLS, ct.labels);
+                        if (skill == null) {
+                            skill = NULL_LABEL;
+                        }
+                        activeSkills[skill] = true;
+                    }
+                }
+            }
+        }
+        console.log("activeSkill for " + sel);
+        console.log(activeSkills);
+        this.skillsInTeam = [];
+        for (let s of SKILLS) {
+            console.log(s);
+            console.log(activeSkills[s]);
+            if (activeSkills[s]) {
+                console.log("Yes: " + s);
+                this.skillsInTeam.push(s);
+            } else {
+                console.log("No: " + s);
+            }
+        }
+        console.log(this.skillsInTeam);
+    }
+
     selectTeam(team:string) {
         this.viewSelection.selectedTeam = team;
         this.ticketStyler.updateView(this.viewSelection, this.epicStore);
         this.ticketStyler.collapseAll(this.epicStore);
+        this.updateSkillsInTeam();
     }        
 
     selectPerson(pid:string) {

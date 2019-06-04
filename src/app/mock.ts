@@ -71,7 +71,7 @@ export class MockData {
                     [ ]
                 ], 
                 ["Meeting invites", Status.ToDo,
-                    ["RE", "TeamB"],
+                    ["TeamB"],
                     [  ]
                 ] 
             ]]

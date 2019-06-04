@@ -24,14 +24,19 @@ export class AbstractTicket {
     key = "No-Key";
     subject = "No Subject";
     status: Status;
-    highlight = false;
+    public highlight = false;
     public labels: string[] = [];
     workLog:WorkLogEntry[] = [];
+    public time = "4h";
 
     constructor(key: string, subject: string, status:Status) {
         this.key =  key;
         this.subject = subject;
         this.status = status;
+    }
+
+    public getUrl() {
+        return "https://www.sonensei.ch/tickets/" + this.key;
     }
 
     getStatusCss() {

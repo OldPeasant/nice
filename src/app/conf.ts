@@ -8,7 +8,7 @@ export enum Status {
 
 export const NULL_LABEL:string = "??";
 
-export const SKILLS: string[] = ["RE", "DB", "JV", "NG", "PY", "SH"];
+export const SKILLS: string[] = ["RE", "DB", "JV", "NG", "PY", "SH", NULL_LABEL];
 
 
 export const CSS_PER_STATUS = {};

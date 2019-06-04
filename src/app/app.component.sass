@@ -112,30 +112,47 @@
         .child-tickets-flat, .skill-box
             width: 180px
             float: left
-            background-color: #F8FFF8;
+            background-color: #FFFFFF;
             text-align: center;
-            border: solid 1px #404040
-            padding: 2px
+            border: solid 0px #404040
+            margin-left: 10px
+            
         .child-tickets-flat
             float: right;
-            background-color: #FFF8F8;
+            background-color: #F8F8F8;
             .child-in-team
                 display: none
         .child-tickets-by-skill-container
-            background-color: #F0F0F0;
-            float: left;
+            background-color: #FFFFFF
+            float: left
             .child-not-in-team
-                display: none;
+                display: none
         .child-tickets
             .child-ticket
-                .child-ticket-title
-                    width: 160px;
-                    float: left;
-                    white-space: nowrap;
+                .child-ticket-key
+                    text-align: left
+                    position: relative
+                    top: 2px
+                    left: 25px
+                    width: 100px
+                .child-ticket-subject
+                    position: relative
+                    top: 2px
+                    left: 5px
+                    white-space: nowrap
+                    width: 160px
+                    text-align: left
+                .child-ticket-time
+                    color: red
+                    position: relative
+                    top: -35px
+                    left: 120px
+                    width: 40px
                 width: 180px;
                 height: 40px;
                 overflow: hidden;
                 margin-bottom: 5px;
+                border: solid 1px #404040
 
                 &.child-in-team
                     font-style: normal;
